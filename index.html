@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chai Date for Meya Madam 🍵</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=Caveat:wght@500;700&family=Lora:ital@1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --chai: #C8763A;
+    --cream: #FFF8F0;
+    --blush: #F9C4C4;
+    --rose: #E8687A;
+    --deeprose: #c94560;
+    --brown: #5C2E0E;
+    --warmgold: #F2B34B;
+    --soft: #FDE8D8;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    background: var(--cream);
+    font-family: 'Caveat', cursive;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background-image: radial-gradient(circle at 15% 20%, #fde8d8 0%, #fff8f0 55%, #fce4ec 100%);
+  }
+
+  /* floating hearts */
+  .hearts-bg { position:fixed; inset:0; pointer-events:none; z-index:0; overflow:hidden; }
+  .hf { position:absolute; animation:floatUp linear infinite; opacity:.14; }
+  @keyframes floatUp {
+    0%   { transform:translateY(100vh) rotate(-15deg); opacity:0; }
+    10%  { opacity:.2; }
+    90%  { opacity:.14; }
+    100% { transform:translateY(-10vh) rotate(15deg); opacity:0; }
+  }
+
+  .container { position:relative; z-index:1; max-width:680px; margin:0 auto; padding:2rem 1.5rem 5rem; text-align:center; }
+
+  /* title */
+  .title-block { animation:fadeDown .8s ease both; margin-bottom:.4rem; }
+  @keyframes fadeDown { from{opacity:0;transform:translateY(-28px)} to{opacity:1;transform:translateY(0)} }
+  .subtitle { font-family:'Lora',serif; font-style:italic; color:var(--chai); font-size:1.1rem; letter-spacing:.1em; }
+  h1 { font-family:'Playfair Display',serif; font-size:clamp(2rem,7vw,3.2rem); color:var(--brown); line-height:1.15; }
+  h1 span { color:var(--rose); }
+  .tagline { font-size:1.25rem; color:var(--chai); margin-top:.3rem; }
+
+  /* ── RUNNING DOG ── */
+  .running-strip {
+    width:100%; overflow:hidden; height:112px; position:relative;
+    margin:1.2rem 0 .3rem; border-radius:16px;
+    background:linear-gradient(to bottom,transparent 55%,rgba(249,196,196,.18) 100%);
+  }
+  .running-strip::after {
+    content:''; position:absolute; bottom:12px; left:0; right:0; height:2px;
+    background:repeating-linear-gradient(to right,var(--blush) 0,var(--blush) 10px,transparent 10px,transparent 20px);
+  }
+  .rdwrap { position:absolute; bottom:14px; animation:runAcross 4.6s linear infinite; width:92px; }
+  @keyframes runAcross { 0%{left:-110px} 100%{left:calc(100% + 30px)} }
+
+  .paw { position:absolute; bottom:15px; font-size:.68rem; opacity:0; animation:pawFade 4.6s linear infinite; }
+  @keyframes pawFade { 0%,74%{opacity:0} 80%{opacity:.45} 100%{opacity:0} }
+
+  .leg-fl  { transform-origin:38px 62px; animation:legF .25s ease-in-out infinite alternate; }
+  .leg-bl  { transform-origin:62px 62px; animation:legB .25s ease-in-out infinite alternate; }
+  .leg-fr  { transform-origin:40px 62px; animation:legF .25s ease-in-out infinite alternate .125s; }
+  .leg-br  { transform-origin:64px 62px; animation:legB .25s ease-in-out infinite alternate .125s; }
+  .ear-r   { transform-origin:20px 26px; animation:earF .25s ease-in-out infinite alternate; }
+  .tail-r  { transform-origin:72px 44px; animation:tailW .28s ease-in-out infinite alternate; }
+  .body-r  { animation:bodyB .25s ease-in-out infinite alternate; }
+  @keyframes legF  { from{transform:rotate(-24deg)} to{transform:rotate(24deg)} }
+  @keyframes legB  { from{transform:rotate(20deg)}  to{transform:rotate(-20deg)} }
+  @keyframes earF  { from{transform:rotate(-10deg)} to{transform:rotate(13deg)} }
+  @keyframes tailW { from{transform:rotate(-22deg)} to{transform:rotate(22deg)} }
+  @keyframes bodyB { from{transform:translateY(0)}  to{transform:translateY(-4px)} }
+
+  .rbubble {
+    position:absolute; top:-4px; left:-8px;
+    background:white; border:2px solid var(--rose); border-radius:12px;
+    padding:3px 8px; font-family:'Caveat',cursive; font-size:.76rem;
+    color:var(--brown); white-space:nowrap; box-shadow:2px 2px 0 var(--blush);
+    animation:rbW .22s ease-in-out infinite alternate;
+  }
+  .rbubble::after { content:''; position:absolute; bottom:-8px; left:14px; border:4px solid transparent; border-top-color:var(--rose); }
+  @keyframes rbW { from{transform:rotate(-2deg)} to{transform:rotate(2deg)} }
+
+  /* ── WAITER DOG ── */
+  .scene { position:relative; margin:.6rem auto 0; width:260px; height:305px; animation:fadeIn 1s .3s ease both; }
+  @keyframes fadeIn { from{opacity:0;transform:scale(.85)} to{opacity:1;transform:scale(1)} }
+  .wbubble {
+    position:absolute; top:0; right:-28px;
+    background:white; border:2.5px solid var(--rose); border-radius:20px;
+    padding:.6rem 1rem; font-size:1.05rem; color:var(--brown);
+    width:158px; box-shadow:3px 3px 0 var(--blush);
+    animation:wiggle 2.5s ease-in-out infinite; z-index:10;
+  }
+  .wbubble::after  { content:''; position:absolute; bottom:-14px; left:20px; border:7px solid transparent; border-top-color:var(--rose); }
+  .wbubble::before { content:''; position:absolute; bottom:-10px; left:21px; border:6px solid transparent; border-top-color:white; z-index:1; }
+  @keyframes wiggle { 0%,100%{transform:rotate(-1deg) scale(1)} 50%{transform:rotate(1.5deg) scale(1.03)} }
+  .dog-svg { position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:210px; filter:drop-shadow(4px 6px 10px rgba(92,46,14,.15)); animation:bounce 3s ease-in-out infinite; }
+  @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(-8px)} }
+  .steam { animation:steamR 1.8s ease-in-out infinite; opacity:.6; }
+  @keyframes steamR { 0%{transform:translateY(0) scaleX(1);opacity:.6} 100%{transform:translateY(-18px) scaleX(1.3);opacity:0} }
+
+  /* ── MENU ── */
+  .menu-card {
+    background:white; border:2.5px solid var(--warmgold); border-radius:20px;
+    padding:1.4rem; margin:1.4rem auto; max-width:460px;
+    box-shadow:0 6px 24px rgba(200,118,58,.13); position:relative; overflow:hidden;
+    animation:slideUp .8s .4s ease both;
+  }
+  .menu-card::before { content:''; position:absolute; inset:6px; border:1px dashed var(--blush); border-radius:14px; pointer-events:none; }
+  @keyframes slideUp { from{opacity:0;transform:translateY(36px)} to{opacity:1;transform:translateY(0)} }
+  .menu-title { font-family:'Playfair Display',serif; font-size:1.45rem; color:var(--brown); margin-bottom:1rem; }
+  .menu-items { display:grid; grid-template-columns:1fr 1fr; gap:.6rem; margin-bottom:.8rem; }
+  .menu-item { background:var(--soft); border-radius:12px; padding:.5rem .7rem; font-size:1rem; color:var(--brown); border:1.5px solid var(--blush); cursor:pointer; transition:all .2s; }
+  .menu-item:hover,.menu-item.selected { background:var(--blush); border-color:var(--rose); transform:scale(1.04); }
+  .menu-item span { display:block; font-size:1.4rem; }
+
+  /* ── HEART CALENDAR ── */
+  .heart-cal-section { animation:slideUp .8s .6s ease both; margin:1.6rem auto; max-width:520px; }
+  .hcal-title { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--brown); margin-bottom:1.1rem; }
+
+  /* heart SVG clip */
+  .heart-clip-wrap {
+    position:relative; width:100%; max-width:480px; margin:0 auto;
+    /* aspect approximated by padding-top trick */
+  }
+
+  /* the big heart shape using CSS */
+  .heart-shape {
+    position:relative;
+    width:min(440px, 92vw);
+    height:min(420px, 88vw);
+    margin:0 auto;
+    filter:drop-shadow(0 8px 28px rgba(232,104,122,.28));
+  }
+  .heart-shape::before,
+  .heart-shape::after {
+    content:'';
+    position:absolute;
+    width:50%; height:80%;
+    background:linear-gradient(160deg,#fff0f5 0%,#ffe4ec 60%,#ffd6e7 100%);
+    border:3px solid var(--rose);
+    border-radius:50% 50% 0 0;
+    top:0;
+  }
+  .heart-shape::before { left:0;  transform-origin:100% 100%; transform:rotate(-45deg); }
+  .heart-shape::after  { right:0; transform-origin:0%   100%; transform:rotate(45deg); }
+
+  /* inner calendar positioned over heart */
+  .heart-inner {
+    position:absolute; inset:0; z-index:2;
+    display:flex; flex-direction:column;
+    align-items:center; justify-content:center;
+    padding:clamp(1.2rem,6%,2.4rem) clamp(.8rem,4%,1.8rem);
+  }
+  .cal-month-label {
+    font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--deeprose);
+    margin-bottom:.6rem; letter-spacing:.05em;
+  }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; width:100%; max-width:360px; }
+  .cal-dn {
+    font-size:clamp(.6rem,.9vw + .5rem,.75rem); color:var(--chai);
+    text-align:center; padding:3px 0; font-weight:700;
+  }
+  .cal-d {
+    aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+    border-radius:50%; font-size:clamp(.7rem,.8vw + .5rem,.88rem);
+    cursor:pointer; color:var(--brown); transition:all .2s; position:relative;
+    font-family:'Caveat',cursive;
+  }
+  .cal-d:hover      { background:var(--blush); transform:scale(1.18); }
+  .cal-d.sel        { background:var(--rose); color:white; font-weight:700; transform:scale(1.2); box-shadow:0 3px 10px rgba(232,104,122,.45); }
+  .cal-d.wknd       { color:var(--rose); }
+  .cal-d.empty      { cursor:default; }
+  .cal-d.today      { outline:2.5px solid var(--warmgold); outline-offset:2px; }
+  .cal-d.sp::after  { content:'♥'; position:absolute; top:-5px; right:-2px; font-size:.5rem; color:var(--rose); }
+
+  /* time picker */
+  .time-wrap { margin:1.4rem auto; max-width:460px; animation:slideUp .8s .8s ease both; }
+  .time-title { font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--brown); margin-bottom:.9rem; }
+  .time-slots { display:flex; flex-wrap:wrap; gap:.55rem; justify-content:center; }
+  .ts {
+    background:var(--soft); border:1.8px solid var(--blush); border-radius:24px;
+    padding:.4rem 1.1rem; font-size:1.05rem; color:var(--brown);
+    cursor:pointer; transition:all .2s; font-family:'Caveat',cursive;
+  }
+  .ts:hover,.ts.sel { background:var(--warmgold); border-color:var(--chai); color:white; transform:scale(1.08); box-shadow:0 3px 12px rgba(242,179,75,.38); }
+
+  /* selected summary banner */
+  .summary-bar {
+    background:white; border:2px dashed var(--rose); border-radius:16px;
+    padding:.9rem 1.2rem; margin:1.2rem auto; max-width:460px;
+    font-size:1.15rem; color:var(--brown); min-height:58px;
+    display:flex; align-items:center; justify-content:center; gap:.4rem;
+    animation:slideUp .8s .9s ease both;
+  }
+  .summary-bar .sitem { background:var(--blush); border-radius:20px; padding:.2rem .75rem; font-size:1rem; color:var(--brown); }
+
+  /* confirm */
+  .confirm-section { margin-top:1.4rem; animation:slideUp .8s 1s ease both; }
+  .confirm-btn {
+    background:linear-gradient(135deg,var(--rose),var(--chai)); color:white; border:none;
+    border-radius:50px; padding:1rem 2.6rem; font-family:'Caveat',cursive; font-size:1.3rem;
+    cursor:pointer; box-shadow:0 6px 20px rgba(232,104,122,.35); transition:all .25s; letter-spacing:.04em;
+  }
+  .confirm-btn:hover  { transform:translateY(-3px) scale(1.04); box-shadow:0 10px 28px rgba(232,104,122,.5); }
+  .confirm-btn:active { transform:scale(.97); }
+
+  /* confirmed */
+  .confirmed-msg {
+    display:none; background:linear-gradient(135deg,#fff0f5,#fff8f0);
+    border:2px solid var(--rose); border-radius:20px; padding:1.6rem;
+    margin-top:1.5rem; font-size:1.25rem; color:var(--brown); animation:popIn .5s ease both;
+  }
+  @keyframes popIn { from{transform:scale(.8);opacity:0} to{transform:scale(1);opacity:1} }
+  .confirmed-msg.show { display:block; }
+  .confirmed-msg .big { font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--rose); }
+</style>
+</head>
+<body>
+
+<div class="hearts-bg" id="heartsBg"></div>
+
+<div class="container">
+
+  <!-- Title -->
+  <div class="title-block">
+    <p class="subtitle">~ A Special Invitation ~</p>
+    <h1>Chai Date,<br><span>Meya Madam?</span> ☕</h1>
+    <p class="tagline">🌸 Will you share a cup with me? 🌸</p>
+  </div>
+
+  <!-- Running Dog -->
+  <div class="running-strip">
+    <div class="rdwrap">
+      <div class="rbubble">chai laaya hoon! 🍵💨</div>
+      <svg viewBox="0 0 100 88" width="92" xmlns="http://www.w3.org/2000/svg">
+        <g class="body-r">
+          <path class="tail-r" d="M72,44 Q86,32 80,22" stroke="#A0784A" stroke-width="5.5" stroke-linecap="round" fill="none"/>
+          <ellipse cx="51" cy="52" rx="25" ry="15" fill="#C8A07A"/>
+          <g class="leg-bl"><line x1="61" y1="63" x2="56" y2="82" stroke="#A0784A" stroke-width="5" stroke-linecap="round"/><ellipse cx="55" cy="83" rx="8" ry="4" fill="#8a6030"/></g>
+          <g class="leg-br"><line x1="68" y1="63" x2="63" y2="82" stroke="#A0784A" stroke-width="5" stroke-linecap="round"/><ellipse cx="62" cy="83" rx="8" ry="4" fill="#8a6030"/></g>
+          <g class="leg-fl"><line x1="35" y1="62" x2="28" y2="80" stroke="#A0784A" stroke-width="5" stroke-linecap="round"/><ellipse cx="27" cy="81" rx="8" ry="4" fill="#8a6030"/></g>
+          <g class="leg-fr"><line x1="42" y1="62" x2="35" y2="80" stroke="#A0784A" stroke-width="5" stroke-linecap="round"/><ellipse cx="34" cy="81" rx="8" ry="4" fill="#8a6030"/></g>
+          <ellipse cx="26" cy="42" rx="19" ry="17" fill="#C8A07A"/>
+          <ellipse class="ear-r" cx="18" cy="28" rx="7" ry="13" fill="#A0784A" transform="rotate(-14 18 28)"/>
+          <ellipse cx="18" cy="28" rx="4" ry="8.5" fill="#e8b090" transform="rotate(-14 18 28)"/>
+          <ellipse cx="12" cy="46" rx="11" ry="8" fill="#DEB896"/>
+          <ellipse cx="8" cy="43" rx="4.5" ry="3" fill="#5C3A1E"/>
+          <path d="M7,48 Q11,54 16,48" stroke="#5C3A1E" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="11" cy="53" rx="5" ry="3.5" fill="#E8687A"/>
+          <ellipse cx="22" cy="37" rx="5.5" ry="6" fill="white"/>
+          <ellipse cx="23" cy="37" rx="3" ry="3.5" fill="#3a2010"/>
+          <circle cx="24" cy="35" r="1.3" fill="white"/>
+          <ellipse cx="16" cy="47" rx="5" ry="3" fill="#F9C4C4" opacity=".55"/>
+          <rect x="1" y="43" width="10" height="7" rx="3" fill="#F2B34B"/>
+          <rect x="0" y="48" width="12" height="3" rx="1.5" fill="#C8763A"/>
+          <path d="M11,45 Q15,45 15,49 Q15,53 11,53" stroke="#C8763A" stroke-width="1.5" fill="none"/>
+          <path d="M4,43 Q2,37 4,31" stroke="#ddd" stroke-width="1.5" fill="none" stroke-linecap="round" opacity=".7"/>
+        </g>
+      </svg>
+    </div>
+    <div class="paw" style="left:8%;animation-delay:4.1s">🐾</div>
+    <div class="paw" style="left:18%;animation-delay:3.8s">🐾</div>
+    <div class="paw" style="left:28%;animation-delay:3.5s">🐾</div>
+    <div class="paw" style="left:38%;animation-delay:3.2s">🐾</div>
+    <div class="paw" style="left:48%;animation-delay:2.9s">🐾</div>
+    <div class="paw" style="left:58%;animation-delay:2.6s">🐾</div>
+    <div class="paw" style="left:68%;animation-delay:2.3s">🐾</div>
+    <div class="paw" style="left:78%;animation-delay:2.0s">🐾</div>
+  </div>
+
+  <!-- Waiter Dog -->
+  <div class="scene">
+    <div class="wbubble">Meya Madam,<br>chai date<br>kab hai? 🍵💕</div>
+    <svg class="dog-svg" viewBox="0 0 200 270" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="100" cy="195" rx="52" ry="58" fill="#2C2C2C"/>
+      <ellipse cx="100" cy="195" rx="20" ry="40" fill="white"/>
+      <path d="M90,162 L100,168 L110,162 L100,156 Z" fill="#E8687A"/>
+      <rect x="75" y="240" width="18" height="22" rx="9" fill="#2C2C2C"/>
+      <rect x="107" y="240" width="18" height="22" rx="9" fill="#2C2C2C"/>
+      <ellipse cx="84" cy="263" rx="13" ry="7" fill="#1a1a1a"/>
+      <ellipse cx="116" cy="263" rx="13" ry="7" fill="#1a1a1a"/>
+      <path d="M50,185 Q30,200 28,220" stroke="#2C2C2C" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <path d="M150,185 Q172,170 178,155" stroke="#2C2C2C" stroke-width="16" stroke-linecap="round" fill="none"/>
+      <ellipse cx="182" cy="148" rx="32" ry="8" fill="#C8763A" opacity=".9"/>
+      <rect x="150" y="140" width="64" height="8" rx="4" fill="#A85C28"/>
+      <rect x="167" y="118" width="30" height="22" rx="6" fill="#F2B34B"/>
+      <rect x="164" y="136" width="36" height="5" rx="3" fill="#C8763A"/>
+      <path d="M197,124 Q206,124 206,131 Q206,138 197,138" stroke="#C8763A" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <rect x="170" y="122" width="24" height="12" rx="3" fill="#C8763A" opacity=".7"/>
+      <path class="steam" style="transform-origin:175px 118px" d="M175,118 Q172,110 175,103" stroke="#ccc" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path class="steam" style="transform-origin:182px 116px;animation-delay:.6s" d="M182,116 Q179,108 182,101" stroke="#ccc" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path class="steam" style="transform-origin:189px 118px;animation-delay:1.1s" d="M189,118 Q186,110 189,103" stroke="#ccc" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <ellipse cx="100" cy="105" rx="45" ry="42" fill="#C8A07A"/>
+      <ellipse cx="58" cy="95" rx="16" ry="24" fill="#A0784A" transform="rotate(-10 58 95)"/>
+      <ellipse cx="142" cy="95" rx="16" ry="24" fill="#A0784A" transform="rotate(10 142 95)"/>
+      <ellipse cx="58" cy="95" rx="9" ry="16" fill="#e8b090" transform="rotate(-10 58 95)"/>
+      <ellipse cx="142" cy="95" rx="9" ry="16" fill="#e8b090" transform="rotate(10 142 95)"/>
+      <ellipse cx="100" cy="118" rx="22" ry="16" fill="#DEB896"/>
+      <ellipse cx="100" cy="110" rx="9" ry="6" fill="#5C3A1E"/>
+      <ellipse cx="96" cy="112" rx="2.5" ry="1.8" fill="#3a2010"/>
+      <ellipse cx="104" cy="112" rx="2.5" ry="1.8" fill="#3a2010"/>
+      <path d="M90,122 Q100,132 110,122" stroke="#5C3A1E" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+      <ellipse cx="100" cy="130" rx="7" ry="5" fill="#E8687A"/>
+      <ellipse cx="82" cy="96" rx="10" ry="11" fill="white"/>
+      <ellipse cx="118" cy="96" rx="10" ry="11" fill="white"/>
+      <ellipse cx="84" cy="96" rx="6" ry="7" fill="#3a2010"/>
+      <ellipse cx="120" cy="96" rx="6" ry="7" fill="#3a2010"/>
+      <circle cx="86" cy="93" r="2.5" fill="white"/>
+      <circle cx="122" cy="93" r="2.5" fill="white"/>
+      <path d="M74,88 Q78,84 82,87" stroke="#3a2010" stroke-width="1.5" fill="none"/>
+      <path d="M126,88 Q122,84 118,87" stroke="#3a2010" stroke-width="1.5" fill="none"/>
+      <rect x="68" y="55" width="64" height="12" rx="6" fill="#1a1a1a"/>
+      <rect x="78" y="22" width="44" height="34" rx="5" fill="#2C2C2C"/>
+      <rect x="78" y="47" width="44" height="8" rx="3" fill="#E8687A"/>
+      <text x="93" y="42" font-size="12" fill="#E8687A">♥</text>
+      <ellipse cx="68" cy="116" rx="10" ry="6" fill="#F9C4C4" opacity=".6"/>
+      <ellipse cx="132" cy="116" rx="10" ry="6" fill="#F9C4C4" opacity=".6"/>
+    </svg>
+  </div>
+
+  <!-- Chai Menu -->
+  <div class="menu-card">
+    <div class="menu-title">🍵 Today's Chai Menu</div>
+    <div class="menu-items">
+      <div class="menu-item" onclick="selectMenu(this)"><span>🍵</span>Classic Masala Chai</div>
+      <div class="menu-item" onclick="selectMenu(this)"><span>🌹</span>Rose Kashmiri Chai</div>
+      <div class="menu-item" onclick="selectMenu(this)"><span>🧋</span>Cardamom Chai Latte</div>
+      <div class="menu-item" onclick="selectMenu(this)"><span>🌿</span>Mint Green Chai</div>
+      <div class="menu-item" onclick="selectMenu(this)"><span>🍫</span>Chocolate Chai</div>
+      <div class="menu-item" onclick="selectMenu(this)"><span>🌙</span>Saffron Chai</div>
+    </div>
+    <p style="font-size:.93rem;color:#c0a090">✨ Pick your chai, Madam!</p>
+  </div>
+
+  <!-- ── HEART SHAPED CALENDAR ── -->
+  <div class="heart-cal-section">
+    <div class="hcal-title">💗 Pick your date, Madam 💗</div>
+
+    <!-- Heart built from an SVG so we can clip precisely -->
+    <svg viewBox="0 0 500 480" width="min(480px,94vw)" style="display:block;margin:0 auto;overflow:visible" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <clipPath id="heartClip">
+          <path d="M250,430 C250,430 30,290 30,160 C30,80 90,40 160,40 C200,40 235,58 250,80 C265,58 300,40 340,40 C410,40 470,80 470,160 C470,290 250,430 250,430 Z"/>
+        </clipPath>
+        <filter id="heartShadow" x="-10%" y="-10%" width="120%" height="120%">
+          <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#e8687a" flood-opacity=".25"/>
+        </filter>
+      </defs>
+
+      <!-- heart fill -->
+      <path d="M250,430 C250,430 30,290 30,160 C30,80 90,40 160,40 C200,40 235,58 250,80 C265,58 300,40 340,40 C410,40 470,80 470,160 C470,290 250,430 250,430 Z"
+        fill="url(#heartGrad)" filter="url(#heartShadow)"/>
+      <defs>
+        <radialGradient id="heartGrad" cx="50%" cy="40%" r="60%">
+          <stop offset="0%"   stop-color="#fff5f8"/>
+          <stop offset="55%"  stop-color="#ffe0ea"/>
+          <stop offset="100%" stop-color="#ffc8d8"/>
+        </radialGradient>
+      </defs>
+
+      <!-- heart border -->
+      <path d="M250,430 C250,430 30,290 30,160 C30,80 90,40 160,40 C200,40 235,58 250,80 C265,58 300,40 340,40 C410,40 470,80 470,160 C470,290 250,430 250,430 Z"
+        fill="none" stroke="#e8687a" stroke-width="4"/>
+
+      <!-- little decorative hearts on border -->
+      <text x="48"  y="148" font-size="18" fill="#e8687a" opacity=".4">♥</text>
+      <text x="432" y="148" font-size="18" fill="#e8687a" opacity=".4">♥</text>
+      <text x="240" y="442" font-size="16" fill="#e8687a" opacity=".4">♥</text>
+      <text x="130" y="68"  font-size="13" fill="#e8687a" opacity=".3">♡</text>
+      <text x="352" y="68"  font-size="13" fill="#e8687a" opacity=".3">♡</text>
+
+      <!-- Month label -->
+      <text x="250" y="105" text-anchor="middle" font-family="'Playfair Display',serif" font-size="22" fill="#c94560" letter-spacing="1">March 2026</text>
+      <text x="250" y="126" text-anchor="middle" font-family="Caveat,cursive" font-size="14" fill="#e8687a" opacity=".7">🌸 choose your date 🌸</text>
+
+      <!-- Day names row -->
+      <g id="dayNames" font-family="Caveat,cursive" font-size="13" fill="#c8763a" font-weight="bold"></g>
+
+      <!-- Calendar days grid -->
+      <g id="calDays" font-family="Caveat,cursive" font-size="15" fill="#5C2E0E"></g>
+    </svg>
+  </div>
+
+  <!-- Time slots -->
+  <div class="time-wrap">
+    <div class="time-title">🕐 Choose a time, Madam~</div>
+    <div class="time-slots">
+      <div class="ts" onclick="selectTime(this)">10:00 AM ☀️</div>
+      <div class="ts" onclick="selectTime(this)">11:30 AM 🌸</div>
+      <div class="ts" onclick="selectTime(this)">2:00 PM 🍪</div>
+      <div class="ts" onclick="selectTime(this)">4:00 PM 🌅</div>
+      <div class="ts" onclick="selectTime(this)">6:00 PM 🌙</div>
+      <div class="ts" onclick="selectTime(this)">8:00 PM ✨</div>
+    </div>
+  </div>
+
+  <!-- Live summary bar -->
+  <div class="summary-bar" id="summaryBar">
+    <span style="color:#c0a090;font-size:1rem">your picks will appear here~ 🍵</span>
+  </div>
+
+  <!-- Confirm -->
+  <div class="confirm-section">
+    <button class="confirm-btn" onclick="confirmDate()">✅ Yes! Let's have chai! 🍵💕</button>
+  </div>
+
+  <div class="confirmed-msg" id="confirmedMsg">
+    <div class="big">Yay!! 🎉💕</div>
+    <div id="confirmedText" style="margin-top:.5rem"></div>
+    <div style="font-size:1.8rem;margin-top:.5rem">☕ 🐾 💗</div>
+  </div>
+
+</div>
+
+<script>
+  // ── Floating hearts ──
+  const hb = document.getElementById('heartsBg');
+  ['♥','♡','🍵','✿'].forEach(ch => {
+    for (let j=0;j<4;j++){
+      const h=document.createElement('div'); h.className='hf'; h.textContent=ch;
+      h.style.left=Math.random()*100+'%';
+      h.style.animationDuration=(7+Math.random()*9)+'s';
+      h.style.animationDelay=(Math.random()*10)+'s';
+      h.style.fontSize=(0.85+Math.random()*1.1)+'rem';
+      hb.appendChild(h);
+    }
+  });
+
+  // ── Build SVG calendar inside heart ──
+  const SVG_NS = 'http://www.w3.org/2000/svg';
+  const dayNames = ['Su','Mo','Tu','We','Th','Fr','Sa'];
+  const specialDays = [7,14,21,28];
+  // Grid origin inside heart
+  const GX = 68, GY = 148, CW = 52, RH = 46;
+  // March 2026: day 1 = Sunday (col 0)
+  let selectedDay = null;
+  let selectedDayEl = null;
+
+  const dnG = document.getElementById('dayNames');
+  dayNames.forEach((d,i)=>{
+    const t=document.createElementNS(SVG_NS,'text');
+    t.setAttribute('x', GX + i*CW + CW/2);
+    t.setAttribute('y', GY);
+    t.setAttribute('text-anchor','middle');
+    t.textContent=d;
+    if(i===0||i===6) t.setAttribute('fill','#e8687a');
+    dnG.appendChild(t);
+  });
+
+  const dG = document.getElementById('calDays');
+  for(let d=1;d<=31;d++){
+    const col=(d-1)%7, row=Math.floor((d-1)/7);
+    const cx = GX + col*CW + CW/2;
+    const cy = GY + 24 + row*RH;
+
+    // circle background
+    const circ=document.createElementNS(SVG_NS,'circle');
+    circ.setAttribute('cx',cx); circ.setAttribute('cy',cy); circ.setAttribute('r',19);
+    circ.setAttribute('fill','transparent'); circ.setAttribute('cursor','pointer');
+    circ.style.transition='all .2s';
+    dG.appendChild(circ);
+
+    // today ring
+    if(d===8){
+      const ring=document.createElementNS(SVG_NS,'circle');
+      ring.setAttribute('cx',cx); ring.setAttribute('cy',cy); ring.setAttribute('r',19);
+      ring.setAttribute('fill','none'); ring.setAttribute('stroke','#F2B34B'); ring.setAttribute('stroke-width','2.5');
+      dG.appendChild(ring);
+    }
+
+    // heart for special days
+    if(specialDays.includes(d)){
+      const sp=document.createElementNS(SVG_NS,'text');
+      sp.setAttribute('x',cx+10); sp.setAttribute('y',cy-11);
+      sp.setAttribute('font-size','9'); sp.setAttribute('fill','#e8687a');
+      sp.textContent='♥'; dG.appendChild(sp);
+    }
+
+    // number text
+    const t=document.createElementNS(SVG_NS,'text');
+    t.setAttribute('x',cx); t.setAttribute('y',cy+5);
+    t.setAttribute('text-anchor','middle');
+    t.setAttribute('cursor','pointer');
+    if(col===0||col===6) t.setAttribute('fill','#e8687a');
+    if(d===8) t.setAttribute('fill','#C8763A');
+    t.textContent=d;
+    dG.appendChild(t);
+
+    // click on either circle or text
+    [circ,t].forEach(el=>{
+      el.addEventListener('click',()=>{
+        // reset prev
+        if(selectedDayEl){
+          selectedDayEl.circ.setAttribute('fill','transparent');
+          selectedDayEl.txt.setAttribute('fill', (selectedDayEl.col===0||selectedDayEl.col===6)?'#e8687a':'#5C2E0E');
+        }
+        circ.setAttribute('fill','#e8687a');
+        t.setAttribute('fill','white');
+        selectedDay=d;
+        selectedDayEl={circ,txt:t,col};
+        updateSummary();
+      });
+    });
+    // hover
+    [circ,t].forEach(el=>{
+      el.addEventListener('mouseenter',()=>{ if(selectedDay!==d) circ.setAttribute('fill','#ffc8d8'); });
+      el.addEventListener('mouseleave',()=>{ if(selectedDay!==d) circ.setAttribute('fill','transparent'); });
+    });
+  }
+
+  // ── Menu ──
+  let selectedMenu=null;
+  function selectMenu(el){
+    document.querySelectorAll('.menu-item.selected').forEach(c=>c.classList.remove('selected'));
+    el.classList.add('selected'); selectedMenu=el.textContent.trim(); updateSummary();
+  }
+
+  // ── Time ──
+  let selectedTime=null;
+  function selectTime(el){
+    document.querySelectorAll('.ts.sel').forEach(c=>c.classList.remove('sel'));
+    el.classList.add('sel'); selectedTime=el.textContent.trim(); updateSummary();
+  }
+
+  // ── Summary bar ──
+  function updateSummary(){
+    const bar=document.getElementById('summaryBar');
+    let html='';
+    if(selectedDay)  html+=`<span class="sitem">📅 March ${selectedDay}</span>`;
+    if(selectedTime) html+=`<span class="sitem">🕐 ${selectedTime}</span>`;
+    if(selectedMenu) html+=`<span class="sitem">🍵 ${selectedMenu.replace(/^./,'')}</span>`;
+    bar.innerHTML = html || '<span style="color:#c0a090;font-size:1rem">your picks will appear here~ 🍵</span>';
+  }
+
+  // ── Confirm ──
+  function confirmDate(){
+    const msg=document.getElementById('confirmedMsg');
+    const txt=document.getElementById('confirmedText');
+    const day=selectedDay?`March ${selectedDay}, 2026`:'your chosen day';
+    const time=selectedTime||'a lovely time';
+    const chai=selectedMenu||'Chai';
+    txt.innerHTML=`Our chai date is set for<br>
+      <strong style="color:var(--chai);font-size:1.3rem">${day}</strong> at
+      <strong style="color:var(--rose);font-size:1.3rem">${time}</strong><br>
+      with a warm cup of <em>${chai}</em> 🍵<br><br>
+      <span style="font-size:1rem;color:#aaa">I'll be waiting, Meya Madam~ 🐾💕</span>`;
+    msg.classList.add('show');
+    msg.scrollIntoView({behavior:'smooth',block:'center'});
+    for(let i=0;i<16;i++){
+      const h=document.createElement('div'); h.className='hf'; h.textContent='♥';
+      h.style.left=(10+Math.random()*80)+'%';
+      h.style.animationDuration=(1.8+Math.random()*2)+'s';
+      h.style.fontSize=(1.4+Math.random()*1.6)+'rem';
+      h.style.opacity='.6'; hb.appendChild(h);
+      setTimeout(()=>h.remove(),5000);
+    }
+  }
+</script>
+</body>
+</html>
